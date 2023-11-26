@@ -4,10 +4,10 @@ const User = require("../models/User");
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+require('dotenv').config();
 const fetchUser = require("../middleware/fetchUser")
 
-dotenv.config()
+// console.log(dotenv.config(), "env var")
 
 const JWT_sec = process.env.JWT_SECRET || "WTF";
 
