@@ -6,6 +6,7 @@ const { body, validationResult } = require("express-validator");
 const Note = require("../models/Note");
 
 // ROUTE: 1 fetch all notes from uid: GET "/api/v1/Notes/fetchAllNotes" require auth
+// it is not protected mean a hacker access this using stealing auth-token
 router.get("/fetchAllNotes", fetchUser, async (req, res) => {
   const notes = await Notes.find({ user: req.user.id });
   res.json(notes);
