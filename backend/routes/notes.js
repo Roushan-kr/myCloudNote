@@ -13,7 +13,7 @@ router.get("/fetchAllNotes", fetchUser, async (req, res) => {
 });
 
 // ROUTE: 2 Add notes to uid: POST "/api/v1/Notes/addNote" require auth
-router.post(
+router.put(
   "/addNote",
   fetchUser,
   [

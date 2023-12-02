@@ -1,19 +1,29 @@
-const connectToMongo = require("./db")
-const express = require('express')
+const connectToMongo = require("./db");
+const express = require("express");
+var cors = require("cors");
 
 connectToMongo();
 
-const app = express()
-const port = process.env.PORT || 5000;
-app.use(express.json())
-// Abhilable routes 
-app.use("/api/v1/auth",require("./routes/auth"))
-app.use("/api/v1/Notes",require("./routes/notes"))
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Content-Type", "auth-token"],
+  optionsSuccessStatus: 204
+};
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const app = express();
+const port = process.env.PORT || 5000;
+app.use(cors(corsOptions));
+app.use(express.json());
+
+// Abhilable routes
+app.use("/api/v1/auth", require("./routes/auth"));
+app.use("/api/v1/Notes", require("./routes/notes"));
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
