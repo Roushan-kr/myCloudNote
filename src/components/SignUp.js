@@ -40,7 +40,7 @@ function SignUp(props) {
     if (result.authToken) {
       localStorage.setItem("authToken", result.authToken);
       // setAuthToken(result.authToken)
-      setUser({name:"buddy"})
+      setUser({name: result.name || "Buddy"})
       navigate("/");
     } else {
       console.log(result)

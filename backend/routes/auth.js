@@ -59,7 +59,7 @@ router.post('/createUser', [
             }
         }
         const authToken = jwt.sign(data, JWT_sec)
-        res.json({ authToken })
+        res.json({ authToken ,name:req.body.name})
 
     } catch (error) {
         // If an error occurs, send a 500 Internal Server Error response
@@ -98,7 +98,7 @@ router.post('/login', [
                 }
             }
             const authToken = jwt.sign(data, JWT_sec)
-            res.json({ authToken })
+            res.json({ authToken ,name:user.name })
 
         } catch (error) {
             console.error("Error loging user:", error);

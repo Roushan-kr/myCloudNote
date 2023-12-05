@@ -1,18 +1,22 @@
 import React, { useEffect, useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import UserContext from "../context/User/UserContext";
+{
+  /* TODO: manage login and signup buttons based on authToken not on userContext  */
+}
 
 function Navbar() {
   const { User, setUser } = useContext(UserContext);
   let location = useLocation();
-
+  const navigate = useNavigate();
   useEffect(() => {
     // console.log(location)
-  }, [location]);
+  }, [location, User]);
 
   const handelLogOut = () => {
     setUser(null);
     localStorage.removeItem("authToken");
+    navigate("/");
   };
 
   return (
@@ -93,13 +97,9 @@ function Navbar() {
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
-                  <li>
+                  <li onClick={handelLogOut}>
                     <Link className="dropdown-item" to="#">
-                      <i
-                        className="fas fa-sign-out-alt me-2"
-                        onClick={handelLogOut}
-                      ></i>{" "}
-                      Logout
+                      <i className="fas fa-sign-out-alt me-2"></i> Logout
                     </Link>
                   </li>
                 </ul>

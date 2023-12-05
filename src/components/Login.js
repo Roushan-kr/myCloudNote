@@ -25,9 +25,9 @@ function Login(props) {
 
     if (result.authToken) {
       localStorage.setItem("authToken", result.authToken);
+      setUser({name: result.name || "Buddy"})
       // setAuthToken(result.authToken)
       navigate("/");
-      setUser({ name: "Buddy" });
     } else {
       props.showAlert("Warning", result.error);
       console.log(result.error);
