@@ -3,26 +3,26 @@ import NotesContex from "../context/Notes/NotesContex";
 import NoteCards from "./NoteCards";
 
 function Notes() {
-  const { Notes, addNote, fetchNotes, editNote } = useContext(NotesContex);  // delNote in NoteCard
-  const [Note, setNote] = useState({ title: "", description: " ", tag: "Gen" });
+  const { Notes, addNote, fetchNotes, editNote } = useContext(NotesContex); // delNote in NoteCard
+  const [Note, setNote] = useState({ title: "", description: " ", tag: "" });
   const [ENote, setENote] = useState({});
-
 
   const onChangeData = (e) => {
     setNote({ ...Note, [e.target.name]: e.target.value });
   };
 
   const onEChangeData = (e) => {
-    // taking initial input from updateNote() when edit icon click
-    setENote({ ...ENote, [e.target.name]: e.target.value }); 
+    // taking initial input from updateNoteToModal() when edit icon click
+    setENote({ ...ENote, [e.target.name]: e.target.value });
   };
 
   const handelSubmit = (_) => {
     addNote(Note);
+    setNote({ title: "", description: " ", tag: "" })
   };
   const handelESubmit = (_) => {
     editNote(ENote);
-    document.querySelector(".btn-close").click()
+    document.querySelector(".btn-close").click();
   };
 
   const updateNoteToModal = (noteEObj) => {
@@ -37,13 +37,13 @@ function Notes() {
     <>
       {/* <!-- Modal --> */}
       <div
-        className="  modal fade "
+        className="modal fade"
         id="exampleModal"
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog">
+        <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
@@ -133,8 +133,9 @@ function Notes() {
             type="text"
             name="title"
             className="form-control"
+            placeholder="Min 3 char"
             onChange={onChangeData}
-            minLength={3}
+            value={Note.title}
           />
         </div>
         <div className="mb-3">
@@ -146,8 +147,9 @@ function Notes() {
             type="text"
             name="description"
             className="form-control"
+            placeholder="Min 5 char"
             onChange={onChangeData}
-            minLength={5}
+            value={Note.description}
           />
         </div>
         <div className="mb-3">
@@ -160,6 +162,8 @@ function Notes() {
             name="tag"
             className="form-control"
             onChange={onChangeData}
+            value={Note.tag}
+
           />
         </div>
         <div className="text-center">
@@ -168,7 +172,7 @@ function Notes() {
             className="btn btn-primary btn-lg"
             style={{ fontSize: "1.2rem" }}
             onClick={handelSubmit}
-            disabled={!((Note.title.length >3) && (Note.description.length >5))}
+            disabled={(Note.title.length < 3 && Note.description.length < 5)}
           >
             Add Note
           </button>
@@ -178,7 +182,11 @@ function Notes() {
       <div className="conatainer row mx-auto ">
         {Notes.map((note) => {
           return (
-            <NoteCards key={note._id} note={note} updateNote={updateNoteToModal} />
+            <NoteCards
+              key={note._id}
+              note={note}
+              updateNote={updateNoteToModal}
+            />
           );
         })}
       </div>

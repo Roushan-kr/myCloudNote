@@ -17,7 +17,7 @@ router.put(
   "/addNote",
   fetchUser,
   [
-    body("title", "Enter a Valdi Title").isLength({ min: 3 }),
+    body("title", "Enter a Valid Title min 3 char").isLength({ min: 3 }),
     body("description", "Enter min 5 char").isLength({ min: 5 }),
   ],
   async (req, res) => {
