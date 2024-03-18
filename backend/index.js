@@ -21,7 +21,7 @@ app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/Notes", require("./routes/notes"));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("we are woking for mycloud website");
 });
 
 app.listen(port, () => {
